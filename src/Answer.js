@@ -10,8 +10,6 @@ const Answer = (props) => {
     const [answerColors, setAnswerColors] = useState(["#f5f5f5", "#f5f5f5", "#f5f5f5", "#f5f5f5"]);
 
     const guessId = props.guessId;
-
-    const [gameFinished, setGameFinished] = useState(false);
     
     const rightName = props.rightName;
     const rightRole = props.rightRole;
@@ -64,17 +62,16 @@ const Answer = (props) => {
             sameAnime ? colors.push("green") : colors.push("#A9ACA9")
             guessId === rightId ? colors.push("green") : colors.push("#A9ACA9")
             setAnswerColors(colors)
+            console.log(colors)
         })
        .then(() => {
         if(guessId === rightId) {
-            setGameFinished(true)
             setMessage("Você venceu!")
             setShowMessage(true)
             // localStorage.setItem('gameOver', true)
         }
         else {
             if((guessId !== rightId) && props.index === 4) {
-                setGameFinished(true)
                 setMessage("Você perdeu!")
                 setShowMessage(true)
             }
@@ -154,10 +151,10 @@ const Answer = (props) => {
             <RoleDiv>
                 <p>{guessRole}</p>
             </RoleDiv>
-            <AnimeDiv>
+            <AnimeDiv style={{ backgroundColor: answerColors[2]}}>
                 <p>{guessSingleAnime}</p>
             </AnimeDiv>
-            <ImageDiv>
+            <ImageDiv style={{ backgroundColor: answerColors[3]}}>
                 <img src={guessImage} alt="" height='50px'/>
             </ImageDiv>
             {showMessage &&  <Message>
