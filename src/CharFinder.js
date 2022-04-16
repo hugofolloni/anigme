@@ -10,17 +10,6 @@ const CharFinder = () => {
     const [charId, setCharId] = useState('');
     const [charSingleAnime, setCharSingleAnime] =  useState('');
 
-    const newDate = new Date();
-
-    if(localStorage.getItem('date') === null) {
-        localStorage.setItem('date', newDate.toString());
-    }
-    
-    if(newDate.toString() !== localStorage.getItem('date')){
-        localStorage.setItem('date', newDate.toString());
-        localStorage.setItem('gameOver', false);
-    }
-
     useEffect(() => {    
         var animeArray = [16498, 1535, 5114, 30276, 11757, 31964, 22319, 20, 38000, 11061, 32281, 25777, 9253, 33486, 19815, 1735, 1575, 4224, 28851, 35760, 20507, 23273, 31240, 6547, 36456, 21, 22199, 10620, 23755, 31043, 40748, 38524, 21881, 9919, 24833, 32182, 30831, 20583, 37779, 269, 22535, 1, 199, 6702, 27899, 2904, 40028, 18679, 28223, 30] 
 
@@ -57,9 +46,6 @@ const CharFinder = () => {
             setCharImage(charImageArray[randomChar])
             setCharId(charIdArray[randomChar])
             characterIdToFindAnime = charIdArray[randomChar]
-            console.log(charIdArray[randomChar])
-
-            localStorage.setItem('gameOver', false)
 
             
             fetch(`https://api.jikan.moe/v4/characters/${characterIdToFindAnime}/anime`)
@@ -68,7 +54,7 @@ const CharFinder = () => {
                 var guessAnimeList = []
                 var guessSingleAnimeName = ''
                 var guessSingleAnimeId = 10000000
-                for(let i = 1; i < data.data.length; i++) {
+                for(let i = 0; i < data.data.length; i++) {
                     guessAnimeList.push(data.data[i].anime.title)
                     if(guessSingleAnimeId > data.data[i].anime.mal_id) {
                         guessSingleAnimeName = data.data[i].anime.title
@@ -77,7 +63,6 @@ const CharFinder = () => {
                 }
                 setCharAnime(guessAnimeList)
                 setCharSingleAnime(guessSingleAnimeName)
-                console.log(guessAnimeList)
             })
         })
 
@@ -97,7 +82,7 @@ const CharFinder = () => {
 
     return ( 
         <div className="info">
-            <Image src={charImage} alt="" />
+            <Image id='char-hidden-image' src={charImage} alt="" />
             <GameArea name={charName} role={charRole} anime={charAnime} id={charId} image={charImage} singleAnime={charSingleAnime}/>
         </div>
      );

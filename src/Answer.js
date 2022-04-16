@@ -22,9 +22,9 @@ const Answer = (props) => {
     const [guessAnime, setGuessAnime] = useState([]);
     const [guessRole, setGuessRole] = useState('');
     const [guessSingleAnime, setGuessSingleAnime] = useState('');
-
-    useEffect(() => {
     
+    useEffect(() => {
+
         fetch(`https://api.jikan.moe/v4/characters/${guessId}`)
         .then(res => res.json())
         .then(data => {
@@ -35,6 +35,7 @@ const Answer = (props) => {
             fetch(`https://api.jikan.moe/v4/characters/${guessId}/anime`)
             .then(res => res.json())
             .then(data => {
+
                 var guessAnimeList = []
                 var guessSingleAnimeName = ''
                 var guessSingleAnimeId = 10000000
@@ -47,28 +48,26 @@ const Answer = (props) => {
                 setGuessAnime(guessAnimeList)
                 setGuessSingleAnime(guessSingleAnimeName)
                 setGuessRole(data.data[0].role);
+                var colors = []
+                guessId === rightId ? colors.push("#86BA90") : colors.push("#A9ACA9")
+                data.data[0].role === rightRole ? colors.push("#86BA90") : colors.push("#A9ACA9")
+                var sameAnime = false
+                for(let i = 0; i < guessAnimeList.length; i++) {
+                    for(let j = 0; j < rightAnime.length; j++) {
+                        if(guessAnimeList[i] === rightAnime[j]) {
+                            sameAnime = true
+                        }}}
+                sameAnime ? colors.push("#86BA90") : colors.push("#A9ACA9")
+                guessId === rightId ? colors.push("#86BA90") : colors.push("#A9ACA9")
+                setAnswerColors(colors)
             })
-        })
-        .then(() => {
-            var colors = []
-            guessId === rightId ? colors.push("green") : colors.push("#A9ACA9")
-            guessRole === rightRole ? colors.push("green") : colors.push("#A9ACA9")
-            var sameAnime = false
-            for(let i = 0; i < guessAnime.length; i++) {
-                for(let j = 0; j < rightAnime.length; j++) {
-                    if(guessAnime[i] === rightAnime[j]) {
-                        sameAnime = true
-                    }}}
-            sameAnime ? colors.push("green") : colors.push("#A9ACA9")
-            guessId === rightId ? colors.push("green") : colors.push("#A9ACA9")
-            setAnswerColors(colors)
-            console.log(colors)
         })
        .then(() => {
         if(guessId === rightId) {
             setMessage("Você venceu!")
             setShowMessage(true)
-            // localStorage.setItem('gameOver', true)
+            document.getElementById('char-input').style.cssText =  'pointer-events: none';
+            document.getElementById('char-hidden-image').style.cssText = 'filter: blur(0px);'
         }
         else {
             if((guessId !== rightId) && props.index === 4) {
@@ -88,6 +87,9 @@ const Answer = (props) => {
         width: 20%;
         border-radius: 10px;
         text-align: center;
+        @media (max-width: 600px) {
+            padding: 25px;    
+        }
     `
 
     const NameDiv = styled(SingularDiv)`
@@ -107,19 +109,6 @@ const Answer = (props) => {
         padding: 1px;
     `
     
-    const AnswerDiv = styled.div`
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-around;
-        width: 80%;
-        margin: 10px 0;
-        background-color: #60495A;
-        border-radius: 10px;
-        padding: 10px 0px;
-    
-    `
-
     const [messageDisplay, setMessageDisplay] = useState("flex");
 
     const Message = styled.div`
@@ -130,21 +119,23 @@ const Answer = (props) => {
         align-items: center;
         width: 70vw;
         padding: 30px;
-        top: 10%;
+        top: 15%;
         font-size: 20px;
         font-family: 'Roboto', sans-serif;
         background-color: white;
         color: black;
         border-radius: 10px;
         @media (max-width: 800px) {
-            width: 60vw;
-            top: 40%;
+            width: 80vw;
+            top: 20%;
+            flex-direction: column;
+            padding: 80px 20px;
         }
         z-index: 0;
     `
 
     return (  
-        <AnswerDiv>
+        <div className='answer-div'>
             <NameDiv>
                 <p>{guessName}</p>
             </NameDiv>
@@ -161,14 +152,14 @@ const Answer = (props) => {
                 <FontAwesomeIcon className='close-button' icon={ faEyeSlash } onClick={() => setMessageDisplay("none")} />             
                 <div className="left-content">
                     <h1>{message}</h1>
-                    <p>O personagem do dia de hoje era: <strong>{rightName}</strong></p>
-                    <p>Ele é do anime: {props.singleAnime}</p>
+                    <p>O personagem do dia de hoje era <strong>{rightName}</strong></p>
+                    <p>De <strong>{props.singleAnime}</strong></p>
                 </div>
                 <div className="right-content">
                     <img src={rightImage} alt="" />
                 </div>
             </Message>}
-        </AnswerDiv>
+        </div>
     );
 }
  

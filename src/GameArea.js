@@ -22,11 +22,9 @@ const GameArea = (props) => {
     const charId = props.id;
     const charRole = props.role;
 
-    console.log(charAnime)
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter") {
-            console.log(e.target.value)
             verifyAnswer(e.target.value, charId)
             e.target.value = "";
         }
@@ -34,13 +32,11 @@ const GameArea = (props) => {
 
 
     const verifyAnswer = (userTry, charId) => {
-        console.log(userTry)
         const searchApi = `https://api.jikan.moe/v4/characters?q=${userTry}`
         fetch(searchApi)
         .then(res => res.json())
         .then(data => {
             idArray.push(data.data[0].mal_id)
-            console.log(idArray.length)
             handleLine(idArray.length, data.data[0].mal_id)
         })
     }
@@ -69,20 +65,9 @@ const GameArea = (props) => {
         }
     }
 
+
     const [disabled, setDisabled] = useState("all");
-
-    // const gameIsOver =  localStorage.getItem("gameOver");
-
-    // useEffect(() => {
-    //     const gameIsOver =  localStorage.getItem("gameOver");
-    //     if (gameIsOver) {
-    //         setDisabled("none");
-    //     }
-    //     else{
-    //         setDisabled("all");
-    //     }
-    // }, [gameIsOver])
-
+        
 
     const Input = styled.input`
         pointer-events: ${disabled};
@@ -104,7 +89,7 @@ const GameArea = (props) => {
     return ( 
         <div className="game-area">
             <div className='input-div'>
-                <Input type="text" className="input-field" placeholder={inputPlaceholder} onKeyDown={(e) => handleKeyDown(e)}/>
+                <Input type="text" id='char-input' className="input-field" placeholder={inputPlaceholder} onKeyDown={(e) => handleKeyDown(e)}/>
             </div>
             <div className="answer-area">
                 {firstLine && <Answer guessId={firstGuessId} rightName={charName} rightImage={charImage} rightAnime={charAnime} rightRole={charRole} rightId={charId} index={1} singleAnime={props.singleAnime} />}
