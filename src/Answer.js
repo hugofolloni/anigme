@@ -19,7 +19,6 @@ const Answer = (props) => {
 
     const [guessName, setGuessName] = useState('');
     const [guessImage, setGuessImage] = useState('');
-    const [guessAnime, setGuessAnime] = useState([]);
     const [guessRole, setGuessRole] = useState('');
     const [guessSingleAnime, setGuessSingleAnime] = useState('');
     
@@ -45,7 +44,6 @@ const Answer = (props) => {
                         guessSingleAnimeName = data.data[i].anime.title
                         guessSingleAnimeId = data.data[i].anime.mal_id
                 }}
-                setGuessAnime(guessAnimeList)
                 setGuessSingleAnime(guessSingleAnimeName)
                 setGuessRole(data.data[0].role);
                 var colors = []
@@ -70,7 +68,7 @@ const Answer = (props) => {
             document.getElementById('char-hidden-image').style.cssText = 'filter: blur(0px);'
         }
         else {
-            if((guessId !== rightId) && props.index === 4) {
+            if((guessId !== rightId) && props.index === 8) {
                 setMessage("Você perdeu!")
                 setShowMessage(true)
             }
