@@ -170,6 +170,7 @@ body {
   color: black;
   font-weight: 700;
 }
+
 @media (max-width: 800px){
   .input-div {
     width: 100%;
@@ -184,6 +185,7 @@ body {
   }
   .info-page{
     width: 90%;
+    padding: 40px 30px;
   }
   .exemplo{
     width: 35%;
