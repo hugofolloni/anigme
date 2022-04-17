@@ -23,7 +23,7 @@ const InfoPage = () => {
                     </div>
                 </div>
                 <p><strong>DICA: Tente digitar o nome completo do personagem, ou ao menos seu primeiro nome e o anime qual ele pertence, para achar o personagem mais facilmente.</strong></p>
-                <p>Este jogo foi criado por <a href="https://instagram.com/hugofolloni">hugofolloni</a>. Você pode encontrar esse projeto em seu <a href="https://github.com/hugofolloni">github</a>. Foi feito em parceira com <a href='https://instagram.com/thatisxx'>zanini</a>.</p>
+                <p>Este jogo foi criado por <a rel='noreferrer' target='_blank' href="https://instagram.com/hugofolloni">hugofolloni</a>. Você pode encontrar esse projeto em seu <a rel='noreferrer' target='_blank' href="https://github.com/hugofolloni/anigme">Github</a>. Foi feito em parceria com <a target='_blank' rel='noreferrer' href='https://instagram.com/thatisxx'>zanini</a>.</p>
             </div> }
         </div>
      );

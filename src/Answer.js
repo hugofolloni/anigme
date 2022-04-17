@@ -66,6 +66,7 @@ const Answer = (props) => {
             setShowMessage(true)
             document.getElementById('char-input').style.cssText =  'pointer-events: none';
             document.getElementById('char-hidden-image').style.cssText = 'filter: blur(0px);'
+            document.getElementById('char-input').setAttribute('placeholder', 'You won!')
         }
         else {
             if((guessId !== rightId) && props.index === 8) {
