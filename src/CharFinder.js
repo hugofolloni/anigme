@@ -14,14 +14,6 @@ const CharFinder = () => {
     useEffect(() => {    
         var animeArray = [16498, 1535, 5114, 30276, 11757, 31964, 22319, 20, 38000, 11061, 32281, 25777, 9253, 33486, 1735, 4224, 28851, 35760, 20507, 31240, 36456, 21, 22199, 23755, 31043, 40748, 38524, 21881, 32182, 30831, 20583, 37779, 269, 22535, 1, 199, 6702, 27899, 40028, 30] 
 
-        for(let i = 0; i < animeArray.length; i++){
-            fetch(`https://api.jikan.moe/v3/anime/${animeArray[i]}`)
-            .then(res => res.json())
-            .then(data => {
-                console.log(data.title, data.mal_id)
-            })
-        }
-
         const today = new Date();
         const random = (today.getDate() * 12512 * 12351 * (today.getMonth() + 1) * today.getFullYear() * 345151252 * today.getDate() / 11233 * 913) % animeArray.length
         const animeId = animeArray[random]
