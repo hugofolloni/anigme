@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 
 const Answer = (props) => {
     const [showMessage, setShowMessage] = useState(false);
@@ -21,7 +22,7 @@ const Answer = (props) => {
     const [guessImage, setGuessImage] = useState('');
     const [guessRole, setGuessRole] = useState('');
     const [guessSingleAnime, setGuessSingleAnime] = useState('');
-    
+
     useEffect(() => {
 
         fetch(`https://api.jikan.moe/v4/characters/${guessId}`)
@@ -59,6 +60,10 @@ const Answer = (props) => {
                 guessId === rightId ? colors.push("#86BA90") : colors.push("#A9ACA9")
                 setAnswerColors(colors)
             })
+            var colorArray = []
+            var lastColorArray = JSON.parse(localStorage.getItem('colorArray'))
+            colorArray = [...lastColorArray, ...answerColors]
+            localStorage.setItem('colorArray', JSON.stringify(colorArray))
         })
        .then(() => {
         if(guessId === rightId) {
@@ -77,7 +82,7 @@ const Answer = (props) => {
     }) 
     }, [props])
 
-
+    
     const SingularDiv = styled.div`
         display: flex;
         align-items: center;
@@ -133,6 +138,29 @@ const Answer = (props) => {
         z-index: 0;
     `
 
+    const shareResults = () => {
+        const date = new Date();
+        var colorArray = JSON.parse(localStorage.getItem('colorArray'))
+        var colorString = ''
+        for(let i = 0; i < colorArray.length; i++) {
+            if(colorArray[i] === '#86BA90') {
+                colorString += '🟩'
+                if(i % 4 === 3) {
+                    colorString += '%0D'
+                }
+            }
+            else if(colorArray[i] === '#A9ACA9') {
+                colorString += '⬜'
+                if(i % 4 === 3) {
+                    colorString += '%0D'
+                }
+            }
+        }
+        colorString += '🟩🟩🟩🟩'
+        const textToShare = `Eu acertei o personagem do dia ${date.getDate()}/${(date.getMonth() + 1).toLocaleString('pt-BR', {minimumIntegerDigits: 2})} no anigme! %0D%0D${colorString}%0D`;
+        window.open(`https://twitter.com/intent/tweet?text=${textToShare}&url=https://anigme.netlify.app`, '_blank');
+    }
+
     return (  
         <div className='answer-div'>
             <NameDiv>
@@ -153,6 +181,7 @@ const Answer = (props) => {
                     <h1>{message}</h1>
                     <p>O personagem do dia de hoje era <strong>{rightName}</strong></p>
                     <p>De <strong>{props.singleAnime}</strong></p>
+                    <button className="compartilhar" onClick={()  => shareResults()}> <FontAwesomeIcon icon={ faTwitter } /> Compartilhe</button>
                 </div>
                 <div className="right-content">
                     <img src={rightImage} alt="" />

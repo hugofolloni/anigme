@@ -38,6 +38,8 @@ const GameArea = (props) => {
 
     const [charArray, setCharArray] = useState([]);
 
+  
+    localStorage.setItem('colorArray', JSON.stringify([]))
 
 
     const handleKeyDown = (e) => {
@@ -100,6 +102,11 @@ const GameArea = (props) => {
         setShowPicker(false)
     }
 
+    const [inputPlaceholder, setInputPlaceholder] = useState("Guess 1 of 8");
+
+    const [disabled, setDisabled] = useState("all");
+
+
     const handleLine = (lineToChange, id) => {
         if (lineToChange === 1) {
             setFirstLine(true)
@@ -142,12 +149,8 @@ const GameArea = (props) => {
             setInputPlaceholder(`You made all of your guesses!`)
             setDisabled("none")
         }
-
     }
 
-
-    const [disabled, setDisabled] = useState("all");
-        
 
     const Input = styled.input`
         pointer-events: ${disabled};
@@ -158,13 +161,11 @@ const GameArea = (props) => {
         font-size: 20px;
         margin-top: 0px;
         padding-left: 10px;
-
+        caret-color: #2F2235;
         :focus {
             outline: #3F3244 2px solid;
         }
     `
-
-    const [inputPlaceholder, setInputPlaceholder] = useState("Guess 1 of 8");
 
     return ( 
         <div className="game-area">
