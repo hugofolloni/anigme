@@ -90,5 +90,3 @@ const CharFinder = () => {
 }
  
 export default CharFinder;
-
-// Criar um componente para cada tentativa, que receberá como props as infos do personagme e o chute. Ele vai computar o chute e vai buscar com a api, respondendo o primeiro resultado. Após isso, ele vai checar as informações e dar display em uma nova linha de tentativa. se o personagem for o correto, tela de vitória.
