@@ -157,8 +157,7 @@ const Answer = (props) => {
             }
         }
         colorString += '🟩🟩🟩🟩'
-        colorString += '%0DJogue aqui: https://anigme.netlify.app'
-        const textToShare = `Eu acertei o personagem do dia ${date.getDate()}/${(date.getMonth() + 1).toLocaleString('pt-BR', {minimumIntegerDigits: 2})} no anigme! %0D%0D${colorString}%0D`;
+        const textToShare = `Eu acertei o personagem do dia ${date.getDate()}/${(date.getMonth() + 1).toLocaleString('pt-BR', {minimumIntegerDigits: 2})} no anigme! %0D%0D${colorString}%0D%0DJogue aqui: https://anigme.netlify.app`;
         window.open(`https://twitter.com/intent/tweet?text=${textToShare}`, '_blank');
     }
 
